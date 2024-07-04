@@ -16,15 +16,17 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Colors.grey,
       ),
       body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Text(
-            'Welcome to Profile Page',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+        child: Column(
+          children: <Widget>[
+            Hero(
+              tag: 'profile',
+              child: Icon(
+                Icons.person,
+                size: 100,
+                color: Colors.grey,
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

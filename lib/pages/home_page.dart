@@ -43,6 +43,10 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
+              trailing: const Hero(
+                tag: 'profile',
+                child: Icon(Icons.person),
+              ),
               title: const Text('Profile'),
               onTap: () {
                 Navigator.pop(context);
