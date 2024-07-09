@@ -1,23 +1,21 @@
 class ToDo {
-  String? id;
   String? todoText;
-  bool isDone = false;
+  bool isDone;
 
   ToDo({
-    required this.id,
     required this.todoText,
     this.isDone = false,
   });
 
   static List<ToDo> todoList() {
     return [
-      ToDo(id: '1', todoText: 'jiji', isDone: true),
-      ToDo(id: '2', todoText: 'hello', isDone: false),
-      ToDo(id: '3', todoText: 'Bye', isDone: true),
-      ToDo(id: '4', todoText: 'Brwd', isDone: false),
-      ToDo(id: '5', todoText: 'fsfrew', isDone: false),
-      ToDo(id: '6', todoText: 'sdnfd', isDone: false),
-      ToDo(id: '7', todoText: 'hhii', isDone: true),
+      ToDo(todoText: 'jiji', isDone: true),
+      ToDo(todoText: 'hello', isDone: false),
+      ToDo(todoText: 'Bye', isDone: true),
+      ToDo(todoText: 'Brwd', isDone: false),
+      ToDo(todoText: 'fsfrew', isDone: false),
+      ToDo(todoText: 'sdnfd', isDone: false),
+      ToDo(todoText: 'hhii', isDone: true),
     ];
   }
 }

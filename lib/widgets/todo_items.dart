@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
+// import '../pages/home_page.dart';
 import '../models/todo.dart';
 
 class ToDoItems extends StatefulWidget {
-  const ToDoItems({super.key});
+  final ToDo todo;
+  final onDeleteItem;
+
+  const ToDoItems({super.key, required this.todo, required this.onDeleteItem});
 
   @override
   State<ToDoItems> createState() => _ToDoItemsState();
 }
 
 class _ToDoItemsState extends State<ToDoItems> {
-  get todoText => null;
-  bool isDone =
-      false; // Add this line to declare and initialize the 'isDone' variable
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,23 +38,27 @@ class _ToDoItemsState extends State<ToDoItems> {
         leading: IconButton(
           onPressed: () {
             setState(() {
-              isDone = !isDone;
+              widget.todo.isDone = !widget.todo.isDone;
             });
           },
-          icon: Icon(isDone ? Icons.check_box_outline_blank : Icons.check_box),
+          icon: Icon(!widget.todo.isDone
+              ? Icons.check_box_outline_blank
+              : Icons.check_box),
           color: Colors.blueGrey,
         ),
         title: Text(
-          todoText as String,
+          widget.todo.todoText as String,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            decoration: isDone ? TextDecoration.lineThrough : null,
+            decoration: widget.todo.isDone ? TextDecoration.lineThrough : null,
           ),
         ),
         trailing: IconButton(
           onPressed: () {
-            setState(() {});
+            setState(() {
+              widget.onDeleteItem(widget.todo);
+            });
           },
           icon: const Icon(
             Icons.delete,
