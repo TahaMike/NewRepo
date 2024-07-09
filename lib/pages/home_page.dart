@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import '../widgets/todo_items.dart';
+
+import '../models/todo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+  final todosList = ToDo.todoList();
 
-class _HomePageState extends State<HomePage> {
+  final todo = ToDo.todoList();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,47 +20,9 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         backgroundColor: Colors.lime[100],
-        // child: ListView(
-        //   padding: EdgeInsets.zero,
-        //   children: [
-        //     const DrawerHeader(
-        //       decoration: BoxDecoration(
-        //         color: Color.fromARGB(255, 232, 238, 169),
-        //         backgroundBlendMode: BlendMode.overlay,
-        //       ),
-        //       child: Text(
-        //         'Drawer Header',
-        //         style: TextStyle(
-        //           color: Colors.black,
-        //           fontSize: 24,
-        //         ),
-        //       ),
-        //     ),
-        //     ListTile(
-        //       trailing: const Hero(
-        //         tag: 'settings',
-        //         child: Icon(Icons.settings),
-        //       ),
-        //       title: const Text('Settings'),
-        //       onTap: () {
-        //         Navigator.pop(context);
-        //       },
-        //     ),
-        //     ListTile(
-        //       trailing: const Hero(
-        //         tag: 'profile',
-        //         child: Icon(Icons.person),
-        //       ),
-        //       title: const Text('Profile'),
-        //       onTap: () {
-        //         Navigator.pop(context);
-        //       },
-        //     ),
-        //   ],
-        // ),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
         child: Column(
           children: [
             _searchBox(),
@@ -86,12 +46,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  ),
+                  for (ToDo todo in todosList) const ToDoItems(),
                 ],
               ),
             ),
+            _addTask(),
           ],
         ),
       ),
@@ -101,6 +60,7 @@ class _HomePageState extends State<HomePage> {
 
 Widget _searchBox() {
   return Container(
+    margin: const EdgeInsets.only(top: 5, bottom: 20),
     padding: const EdgeInsets.symmetric(horizontal: 20),
     decoration: BoxDecoration(
       color: Colors.white,
@@ -115,16 +75,66 @@ Widget _searchBox() {
           size: 20,
         ),
         prefixIconConstraints: BoxConstraints(
-          maxHeight: 20,
+          maxHeight: 25,
           minWidth: 25,
         ),
-        border: InputBorder.none,
-        labelText: 'Search',
+        border: UnderlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        hintText: 'Search',
         hintStyle: TextStyle(
           color: Colors.grey,
           fontSize: 15,
         ),
       ),
+    ),
+  );
+}
+
+Widget _addTask() {
+  return Container(
+    // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: const EdgeInsets.only(right: 0, left: 10, top: 5, bottom: 5),
+
+    margin: const EdgeInsets.only(top: 20, bottom: 5),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Row(
+      children: [
+        const Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(right: 10),
+              prefixIcon: Icon(
+                Icons.add_task,
+                color: Color.fromARGB(255, 61, 66, 2),
+                size: 20,
+              ),
+              prefixIconConstraints: BoxConstraints(
+                maxHeight: 20,
+                minWidth: 20,
+              ),
+              border: InputBorder.none,
+              hintText: 'Add New Task',
+              hintStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 186, 199, 42),
+            elevation: 5,
+            shape: const CircleBorder(eccentricity: 0.3),
+          ),
+          child: const Icon(Icons.add),
+        ),
+      ],
     ),
   );
 }
